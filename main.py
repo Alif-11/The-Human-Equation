@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 
 # set the size of the game screen
-screen = pygame.display.set_mode([700,700])
+screen = pygame.display.set_mode([1280,780])
 # set up clock, to help with the FPS of the game
 clock = pygame.time.Clock()
 running = True
@@ -13,7 +13,9 @@ running = True
 dt = 0
 # get the player position
 player_position = pygame.Vector2(screen.get_width()/2-40, screen.get_height()/2-40)
-enemy_position = pygame.Vector2(screen.get_width()/4, screen.get_height()/4)
+
+gravity_y = 0.1
+velocity_y = 0
 
 while running:
   for event in pygame.event.get():
@@ -28,10 +30,10 @@ while running:
   # Code for your game
   # draw player
   pygame.draw.circle(screen,"white", player_position, 20)
+  pygame.draw.rect(screen,"white", (0,740,screen.get_width(),40))
+
+  platform_hitbox = pygame.Rect(0,740,screen.get_width(),40)
   # draw enemy
-  pygame.draw.circle(screen,"red",enemy_position,15)
-  # draw enemy eye
-  pygame.draw.circle(screen,"black",enemy_position,5)
   pressed_keys = pygame.key.get_pressed()
   if pressed_keys[pygame.K_UP]:
     player_position.y -= 150 * dt
@@ -41,6 +43,22 @@ while running:
     player_position.x -= 150 * dt
   if pressed_keys[pygame.K_RIGHT]:
     player_position.x += 150 * dt
+
+  # collision detection with platform
+  circle_hitbox = pygame.Rect(player_position.x - 20, player_position.y - 20, 40, 40)
+
+  if circle_hitbox.colliderect(platform_hitbox):
+    # on platform
+    velocity_y = 0
+  else:
+    # implement gravity
+    velocity_y += gravity_y
+  
+  player_position.y += velocity_y
+
+  
+
+
 
   # End of game code--
   ####################
