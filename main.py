@@ -14,7 +14,7 @@ dt = 0
 # get the player position
 player_position = pygame.Vector2(screen.get_width()/2-40, screen.get_height()/2-40)
 
-gravity_y = 0.1
+gravity_y = 0.5
 velocity_y = 0
 
 while running:
@@ -35,8 +35,6 @@ while running:
   platform_hitbox = pygame.Rect(0,740,screen.get_width(),40)
   # draw enemy
   pressed_keys = pygame.key.get_pressed()
-  if pressed_keys[pygame.K_UP]:
-    player_position.y -= 150 * dt
   if pressed_keys[pygame.K_DOWN]:
     player_position.y += 150 * dt
   if pressed_keys[pygame.K_LEFT]:
@@ -50,8 +48,13 @@ while running:
   if circle_hitbox.colliderect(platform_hitbox):
     # on platform
     velocity_y = 0
+    gravity_y = 0
+    player_position.y = platform_hitbox.top - 19
+    if pressed_keys[pygame.K_UP]:
+      velocity_y = -8
   else:
     # implement gravity
+    gravity_y = 0.5
     velocity_y += gravity_y
   
   player_position.y += velocity_y
