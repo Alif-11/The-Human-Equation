@@ -3,7 +3,7 @@
 # Contains main game loop
 
 #
-# #
+##
 
 
 import pygame
