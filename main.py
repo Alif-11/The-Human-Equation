@@ -25,6 +25,8 @@ pygame.display.flip()
 # is game running?
 running = True
 
+sprite_sheet = pygame.image.load("images/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png").convert_alpha()
+
 # game loop
 while running:
 
@@ -44,7 +46,9 @@ while running:
     # draw on the screen
     screen.fill(clear_color)
 
+    screen.blit(sprite_sheet, (0,0))
+
     # display changes
-    pygame.display.flip()
+    pygame.display.update()
 
 pygame.quit()
