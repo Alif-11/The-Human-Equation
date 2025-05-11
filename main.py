@@ -27,6 +27,16 @@ running = True
 
 sprite_sheet = pygame.image.load("images/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png").convert_alpha()
 
+def get_image(spritesheet, width, height):
+  image = pygame.Surface((width, height)).convert_alpha() # creates a new image
+  image.blit(spritesheet, (0,0), (0, 0, width, height)) # takes the sprite sheet,
+  # takes the 0,0 coordinate, takes the square of width width and height height
+  # and draws it on the image surface.
+
+  return image
+
+bunny_character = get_image(sprite_sheet, 44, 44)
+
 # game loop
 while running:
 
@@ -46,7 +56,10 @@ while running:
     # draw on the screen
     screen.fill(clear_color)
 
-    screen.blit(sprite_sheet, (0,0))
+    # draw bunny, at position 0,0
+    screen.blit(bunny_character, (0,0))
+
+    #screen.blit(sprite_sheet, (0,0))
 
     # display changes
     pygame.display.update()
